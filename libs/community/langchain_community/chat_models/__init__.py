@@ -21,7 +21,6 @@ import importlib
 from typing import Any
 
 _module_lookup = {
-    "AzureChatOpenAI": "langchain_community.chat_models.azure_openai",
     "BedrockChat": "langchain_community.chat_models.bedrock",
     "ChatAnthropic": "langchain_community.chat_models.anthropic",
     "ChatAnyscale": "langchain_community.chat_models.anyscale",
@@ -66,7 +65,6 @@ _module_lookup = {
     "VolcEngineMaasChat": "langchain_community.chat_models.volcengine_maas",
 }
 
-
 def __getattr__(name: str) -> Any:
     if name in _module_lookup:
         module = importlib.import_module(_module_lookup[name])
@@ -74,4 +72,7 @@ def __getattr__(name: str) -> Any:
     raise AttributeError(f"module {__name__} has no attribute {name}")
 
 
-__all__ = list(_module_lookup.keys())
+AzureChatOpenAI = langchain_community.chat_models.azure_openai
+
+
+__all__ = list(_module_lookup.keys()+["AzureChatOpenAI"])
